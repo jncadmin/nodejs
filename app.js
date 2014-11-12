@@ -1,35 +1,30 @@
 
-/**
- * Module dependencies.
- */
+var express = require('express');
+var http = require('http');		
+var path = require('path');
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+var flash = require('connect-flash');
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var busboy = require('connect-busboy');
 
-var app = express();
+var app = express(); 	
+var port = process.env.PORT || 3000;
 
-// all environments
-app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
+app.set('view engine', 'ejs');
+
+app.use(bodyParser());
+app.use(cookieParser('keyboard cat'));
+app.use(morgan('dev')); 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'jncsystem' ,cookie:{maxAge:60000 * 60}})); 
+app.use(busboy());
+app.use(flash()); 
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+require("./routes/route.js")(app); 
 
-app.get('/', routes.index);
-app.get('/users', user.list);
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+app.listen(port);
+console.log('The magic happens on port ' + port);

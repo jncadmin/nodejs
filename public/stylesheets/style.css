@@ -1,8 +1,27 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+#jb-container {
+	width: 500px;
+	margin: 0px auto;
+	padding: 20px;
+	border: 1px solid #bcbcbc;
 }
 
-a {
-  color: #00B7FF;
+#jb-header {
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #bcbcbc;
+	background-image: url('./images/header2.png');
+	background-repeat: no-repeat;
+	background-size: 130px;
+}
+
+#jb-content {
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #bcbcbc;
+}
+
+#jb-footer {
+	clear: both;
+	padding: 20px;
+	border: 1px solid #bcbcbc;
 }
